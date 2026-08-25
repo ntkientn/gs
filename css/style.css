@@ -77,8 +77,8 @@ button{font-family:inherit;}
 /* ---------- layout shells ---------- */
 .topbar{position:sticky; top:0; z-index:30; backdrop-filter:blur(10px); background:rgba(255,251,243,.86); border-bottom:1px solid var(--line);}
 .topbar-inner{max-width:760px; margin:0 auto; padding:14px 18px; display:flex; align-items:center; justify-content:space-between;}
-.brand{display:flex; align-items:center; gap:8px; font-size:20px; font-weight:800;}
-.brand-mark{font-size:22px;}
+.brand{display:flex; align-items:center; gap:8px; font-size:30px; font-weight:800;}
+.brand-mark{font-size:30px;}
 .brand-accent{color:var(--coral);}
 .topbar-actions{display:flex; align-items:center; gap:10px;}
 
@@ -101,12 +101,12 @@ button{font-family:inherit;}
 /* ---------- hero / quote ---------- */
 .hero{padding:26px 22px; position:relative; overflow:hidden;}
 .hero::before{content:"☀"; position:absolute; right:-18px; top:-24px; font-size:120px; color:var(--gold-tint); z-index:0; line-height:1;}
-.quote-text{position:relative; z-index:1; font-size:17px; font-weight:600; line-height:1.55; font-style:italic; color:var(--ink); min-height:52px;}
+.quote-text{position:relative; z-index:1; font-size:18px; font-weight:600; line-height:1.55; font-style:italic; color:var(--ink); min-height:52px;}
 .quote-text::before{content:"“"; color:var(--coral); font-style:normal; margin-right:2px;}
 .quote-text::after{content:"”"; color:var(--coral); font-style:normal;}
 .quote-more-btn{
-  position:relative; z-index:1; display:inline-flex; align-items:center; gap:5px; margin-top:12px;
-  background:transparent; border:none; color:var(--coral-dark); font-weight:700; font-size:12.5px;
+  position:relative; z-index:1; display: flex; margin-left: auto; align-items:center; gap:5px; margin-top:12px;
+  background:transparent; border:none; color:var(--coral-dark); font-weight:400; font-size:12.5px;
   cursor:pointer; padding:4px 0; text-decoration:underline; text-underline-offset:3px;
 }
 .quote-more-btn:hover{color:var(--coral);}
@@ -303,7 +303,7 @@ button{font-family:inherit;}
 }
 .back-to-webnet{
   font-size:11px; font-weight:600; color:var(--ink-faint);
-  background:transparent; border:1px solid var(--line); border-radius:999px;
+  background:transparent; border:0px solid var(--line); border-radius:999px;
   padding:3px 10px; text-decoration:none; opacity:.75; transition:opacity .15s ease, color .15s ease;
 }
 .back-to-webnet:hover{opacity:1; color:var(--ink-soft);}
