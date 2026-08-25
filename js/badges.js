@@ -218,25 +218,46 @@ function getGoalBadge(val) {
 
 /* ---------- 4. Data Arrays & Main Render Functions ---------- */
 const MEDALS = [
-    { id:'medal_green',  tier:'green',  threshold:10,   nameVi:'Khởi Đầu Xanh', descVi:'Đạt 10 điểm — dấu mốc cho ngày hoàn thành đầu tiên.' },
-    { id:'medal_bronze', tier:'bronze', threshold:300,  nameVi:'Huy chương Đồng', descVi:'Đạt 300 điểm, tương đương gần 30 ngày.' },
-    { id:'medal_silver', tier:'silver', threshold:1000, nameVi:'Huy chương Bạc', descVi:'Đạt 1.000 điểm, tương đương gần 100 ngày.' },
-    { id:'medal_gold',   tier:'gold',   threshold:5000, nameVi:'Huy chương Vàng', descVi:'Đạt 5.000 điểm, tương đương gần 500 ngày.' },
+    { 
+        id:'medal_green', tier:'green', threshold:10,   
+        nameVi:'Khởi Đầu Xanh', descVi:'Đạt 10 điểm — dấu mốc cho ngày hoàn thành đầu tiên.',
+        nameEn:'Green Starter', descEn:'Reach 10 points — marking your very first completed day.'
+    },
+    { 
+        id:'medal_bronze', tier:'bronze', threshold:300,  
+        nameVi:'Huy chương Đồng', descVi:'Đạt 300 điểm, tương đương gần 30 ngày.',
+        nameEn:'Bronze Medal', descEn:'Reach 300 points, roughly 30 days of consistency.'
+    },
+    { 
+        id:'medal_silver', tier:'silver', threshold:1000, 
+        nameVi:'Huy chương Bạc', descVi:'Đạt 1.000 điểm, tương đương gần 100 ngày.',
+        nameEn:'Silver Medal', descEn:'Reach 1,000 points, roughly 100 days of consistency.'
+    },
+    { 
+        id:'medal_gold', tier:'gold', threshold:5000, 
+        nameVi:'Huy chương Vàng', descVi:'Đạt 5.000 điểm, tương đương gần 500 ngày.',
+        nameEn:'Gold Medal', descEn:'Reach 5,000 points, roughly 500 days of consistency.'
+    },
 ];
 
 for(let i=1; i<=5; i++) {
     MEDALS.push({
         id:`medal_supreme_${i}`, tier:'supreme', stars:i, threshold: i*10000,
-        nameVi:`Tối cao ${i} Sao`, descVi:`Đạt ${i*10}k điểm — đẳng cấp cao nhất.`
+        nameVi:`Tối cao ${i} Sao`, descVi:`Đạt ${i*10}k điểm — đẳng cấp cao nhất.`,
+        nameEn:`Supreme ${i}-Star`, descEn:`Reach ${i*10}k points — the highest tier of dedication.`
     });
 }
 
 const BADGE_THRESHOLDS = [10, 20, 50, 100, 200, 500, 1000];
 const STREAK_BADGES = BADGE_THRESHOLDS.map(n => ({
-    id:`streak_${n}`, kind:'streak', threshold:n, nameVi:`Chuỗi ${n} ngày`, descVi:`Đạt chuỗi ${n} ngày.`
+    id:`streak_${n}`, kind:'streak', threshold:n, 
+    nameVi:`Chuỗi ${n} ngày`, descVi:`Đạt chuỗi ${n} ngày liên tiếp.`,
+    nameEn:`${n}-Day Streak`, descEn:`Reach a ${n}-day streak.`
 }));
 const GOAL_BADGES = BADGE_THRESHOLDS.map(n => ({
-    id:`goal_${n}`, kind:'goal', threshold:n, nameVi:`${n} Mục tiêu`, descVi:`Hoàn thành ${n} mục tiêu.`
+    id:`goal_${n}`, kind:'goal', threshold:n, 
+    nameVi:`${n} Mục tiêu`, descVi:`Hoàn thành ${n} mục tiêu.`,
+    nameEn:`${n} Goals`, descEn:`Successfully complete ${n} goals.`
 }));
 
 function renderMedalSVG(medal) {
