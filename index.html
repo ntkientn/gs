@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>GoalStreak — Nuôi dưỡng thói quen mỗi ngày</title>
 <meta name="description" content="Theo dõi thói quen hàng ngày, giữ chuỗi ngày, đạt huy chương.">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔥</text></svg>">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M1 7h5 M0 12h5 M2 17h7' stroke='%23FF5D3E' stroke-width='1' stroke-linecap='round'/%3E%3Cg stroke='%23991B1B' stroke-width='0.5' stroke-linejoin='round'%3E%3Cpolygon points='6,10 10,4 15,10' fill='%23FFE02E'/%3E%3Cpolygon points='10,4 20,4 15,10' fill='%23FF5D3E'/%3E%3Cpolygon points='15,10 20,4 24,10' fill='%23FFE02E'/%3E%3Cpolygon points='6,10 15,10 15,21' fill='%23FFB8B8'/%3E%3Cpolygon points='15,10 24,10 15,21' fill='%23FF5D3E'/%3E%3C/g%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -16,7 +16,7 @@
 <!-- ============ UTILITY STRIP (top of page, outside main layout) ============ -->
 <div class="utility-strip">
   <div class="utility-strip-inner">
-    <a href="https://ntkientn.github.io/webnet/" class="back-to-webnet" target="_blank" rel="noopener">← WebNet</a>
+    <a href="https://ntkientn.github.io/webnet/" class="back-to-webnet" target="_blank" rel="noopener">< Back to WebNet</a>
   </div>
 </div>
 
@@ -27,7 +27,23 @@
 <header class="topbar">
   <div class="topbar-inner">
     <div class="brand">
-      <span class="brand-mark">🔥</span>
+      <span class="brand-mark" style="display: flex; align-items: center; margin-right: 6px; transform: translateY(-1px);">
+        <svg viewBox="0 0 24 24" width="33" height="33" xmlns="http://www.w3.org/2000/svg">
+          <!-- Nét tia gió được canh lại khoảng cách -->
+          <path d="M1 7h5 M0 12h5 M2 17h7" stroke="var(--coral)" stroke-width="1" stroke-linecap="round"/>
+          
+          <!-- Khối kim cương được nới rộng bề ngang (tâm dời về x=15) -->
+          <g stroke="#991B1B" stroke-width="0.5" stroke-linejoin="round">
+            <!-- Vàng vs Vàng đậm -->
+            <polygon points="6,10 10,4 15,10" fill="#FFE02E"/>
+            <polygon points="10,4 20,4 15,10" fill="var(--coral)"/>
+            <polygon points="15,10 20,4 24,10" fill="#FFE02E"/>
+            <!-- Đỏ vs Đỏ đậm -->
+            <polygon points="6,10 15,10 15,21" fill="#FFB8B8"/>
+            <polygon points="15,10 24,10 15,21" fill="var(--coral)"/>
+          </g>
+        </svg>
+      </span>
       <span class="brand-name">Goal<span class="brand-accent">Streak</span></span>
     </div>
     <div class="topbar-actions">
@@ -37,7 +53,18 @@
         <span class="lang-opt" data-lang="en">EN</span>
       </button>
       <button id="openAchievements" class="icon-btn" type="button" data-i18n-title="nav.achievements">
-        <svg viewBox="0 0 24 24" width="22" height="22" fill="none"><path d="M7 4h10v4a5 5 0 0 1-10 0V4z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M7 5H4v1.5A3.5 3.5 0 0 0 7 10M17 5h3v1.5A3.5 3.5 0 0 1 17 10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 13v3M9 20h6M9.5 16.5h5l.5 3.5h-6l.5-3.5z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        <svg viewBox="0 0 24 24" width="24" height="24" xmlns="http://www.w3.org/2000/svg">
+          <!-- Dải ruy băng bên trái (Màu cam san hô) -->
+          <path d="M6 2h4l2 6-4 2z" fill="var(--coral)"/>
+          <!-- Dải ruy băng bên phải (Màu cam san hô đậm tạo chiều sâu) -->
+          <path d="M18 2h-4l-2 6 4 2z" fill="var(--coral-dark)"/>
+          <!-- Khối huy chương vàng nguyên khối -->
+          <circle cx="12" cy="14" r="8" fill="var(--gold)"/>
+          <!-- Lõi sáng của huy chương -->
+          <circle cx="12" cy="14" r="5.5" fill="var(--gold-tint)"/>
+          <!-- Ngôi sao 5 cánh tinh xảo ở giữa -->
+          <path d="M12 10.5l1.1 2.4 2.6.2-1.9 1.7.5 2.5-2.3-1.3-2.3 1.3.5-2.5-1.9-1.7 2.6-.2L12 10.5z" fill="var(--gold)"/>
+        </svg>
       </button>
     </div>
   </div>
@@ -190,10 +217,10 @@
       <button class="modal-close" type="button" data-close-modal="achievementsModal" aria-label="Đóng">✕</button>
     </div>
     <div class="modal-body">
-      <h4 class="ach-group-title" data-i18n="ach.medals">🏵️ Huy chương</h4>
+      <h4 class="ach-group-title" data-i18n="ach.medals">🥇 Huy chương</h4>
       <div id="medalGrid" class="ach-grid"></div>
 
-      <h4 class="ach-group-title" data-i18n="ach.streakBadges">🚩 Huy hiệu chuỗi ngày</h4>
+      <h4 class="ach-group-title" data-i18n="ach.streakBadges">	📆 Huy hiệu chuỗi ngày</h4>
       <div id="streakBadgeGrid" class="ach-grid"></div>
 
       <h4 class="ach-group-title" data-i18n="ach.goalBadges">🎯 Huy hiệu mục tiêu</h4>
