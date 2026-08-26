@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GoalStreak — Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#FFFBF3; --bg-grid:#F6EEE0; --surface:#FFFFFF; --surface-soft:#FFF6E8;
+  --ink:#2B2118; --ink-soft:#8B7E70; --ink-faint:#C9BEAF; --line:#EFE4D2;
+  --coral:#FF5D3E; --coral-dark:#DD3E22; --coral-tint:#FFE7DF;
+  --teal:#2A9D8F; --teal-tint:#DCF2EE; --gold:#E8A93D; --gold-tint:#FBEBCC;
+  --radius-xl:28px; --radius-lg:22px; --radius-md:16px; --radius-sm:10px;
+  --shadow-soft:0 10px 30px -14px rgba(43,33,24,.28);
+  --font-display:'Be Vietnam Pro', system-ui, sans-serif;
+  --font-mono:'JetBrains Mono', monospace;
+}
+*{box-sizing:border-box;}
+body{margin:0; font-family:var(--font-display); background:var(--bg); color:var(--ink); padding:0 0 80px;}
+.wrap{max-width:980px; margin:0 auto; padding:40px 24px;}
+h1{font-size:34px; font-weight:900; margin:0 0 6px;}
+.subtitle{color:var(--ink-soft); font-size:15px; margin-bottom:44px;}
+h2{font-size:20px; font-weight:800; margin:56px 0 6px; padding-top:20px; border-top:1px solid var(--line);}
+h2:first-of-type{border-top:none; margin-top:0;}
+.section-desc{color:var(--ink-soft); font-size:13.5px; margin-bottom:20px; max-width:640px; line-height:1.6;}
+code{font-family:var(--font-mono); font-size:12px; background:var(--bg-grid); padding:2px 6px; border-radius:5px;}
+
+.swatch-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:14px;}
+.swatch{border:1px solid var(--line); border-radius:var(--radius-md); overflow:hidden; background:var(--surface);}
+.swatch-color{height:64px;}
+.swatch-meta{padding:9px 11px;}
+.swatch-name{font-size:12.5px; font-weight:700;}
+.swatch-hex{font-family:var(--font-mono); font-size:11px; color:var(--ink-soft);}
+
+.type-row{display:flex; align-items:baseline; gap:18px; padding:14px 0; border-bottom:1px solid var(--line);}
+.type-sample{flex:1;}
+.type-label{width:130px; flex-shrink:0; font-family:var(--font-mono); font-size:11px; color:var(--ink-soft);}
+
+.btn-row{display:flex; flex-wrap:wrap; gap:12px; align-items:center;}
+.btn{display:inline-flex; align-items:center; gap:7px; border:none; border-radius:999px; padding:11px 18px; font-weight:700; font-size:14.5px; cursor:pointer; font-family:inherit;}
+.btn-primary{background:var(--coral); color:#fff; box-shadow:0 10px 20px -8px rgba(255,93,62,.55);}
+.btn-ghost{background:transparent; color:var(--ink-soft); border:1.5px solid var(--line);}
+.btn-danger{color:var(--coral-dark); border:1.5px solid var(--coral-tint); background:transparent;}
+
+.radius-row, .shadow-row{display:flex; flex-wrap:wrap; gap:18px;}
+.radius-box{width:84px; height:84px; background:var(--surface-soft); border:1.5px solid var(--line); display:flex; align-items:center; justify-content:center; font-family:var(--font-mono); font-size:11px; color:var(--ink-soft);}
+.shadow-box{width:140px; height:84px; background:var(--surface); border-radius:var(--radius-md); display:flex; align-items:center; justify-content:center; font-family:var(--font-mono); font-size:11px; color:var(--ink-soft);}
+
+.component-block{background:var(--surface); border:1px solid var(--line); border-radius:var(--radius-lg); padding:20px; margin-bottom:16px;}
+.habit-card-demo{display:flex; align-items:center; gap:14px; padding:14px 16px; background:var(--surface); border:1px solid var(--line); border-radius:var(--radius-lg); box-shadow:var(--shadow-soft); position:relative; overflow:hidden; max-width:480px;}
+.habit-card-demo::before{content:""; position:absolute; left:0; top:0; bottom:0; width:5px; background:var(--coral);}
+.emoji-badge-demo{width:46px; height:46px; border-radius:14px; background:var(--coral-tint); display:flex; align-items:center; justify-content:center; font-size:22px;}
+.check-btn-demo{width:52px; height:52px; border-radius:50%; border:2.5px solid var(--coral); background:var(--surface); color:var(--coral); font-size:24px; display:flex; align-items:center; justify-content:center; flex-shrink:0;}
+.streak-pill-demo{display:inline-flex; align-items:center; gap:3px; background:var(--coral-tint); color:var(--coral-dark); padding:2px 8px; border-radius:999px; font-weight:800; font-size:12.5px;}
+
+.ach-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(110px,1fr)); gap:16px;}
+.ach-item{text-align:center;}
+.ach-item svg{width:74px; height:74px;}
+.ach-item-label{display:block; font-size:11px; font-weight:700; color:var(--ink-soft); margin-top:6px;}
+
+.footer-note{margin-top:60px; padding-top:20px; border-top:1px solid var(--line); color:var(--ink-faint); font-size:11.5px; text-align:center;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>🔥 GoalStreak — Design System</h1>
+  <p class="subtitle">Tài liệu tham chiếu design token & component, đồng bộ 1:1 với <code>css/style.css</code>. Mở file này trực tiếp bằng trình duyệt để xem trực quan.</p>
+
+  <h2>1. Bảng màu (Color tokens)</h2>
+  <p class="section-desc">Palette nền ấm (giấy kem) + bộ 3 accent Coral / Teal / Gold. Không dùng theme cam-đất-kem mặc định thường gặp — chọn coral bão hòa cao làm accent chính để tạo cảm giác năng lượng, cổ vũ.</p>
+  <div class="swatch-grid" id="baseColors"></div>
+
+  <h2>2. Màu nhóm thói quen (Habit groups)</h2>
+  <p class="section-desc">8 nhóm màu để phân loại thói quen — mỗi màu gán cố định cho 1 nhóm, dùng làm dải màu bên trái habit card và tô lịch tháng.</p>
+  <div class="swatch-grid" id="groupColors"></div>
+
+  <h2>3. Typography</h2>
+  <p class="section-desc">Font duy nhất <strong>Be Vietnam Pro</strong> cho toàn bộ giao diện — hỗ trợ dấu tiếng Việt đầy đủ, tránh lỗi pha trộn 2 font khi có dấu. Phân cấp bằng độ đậm (weight) thay vì đổi font.</p>
+  <div id="typeScale"></div>
+
+  <h2>4. Bo góc (Radius scale)</h2>
+  <div class="radius-row">
+    <div class="radius-box" style="border-radius:var(--radius-sm)">sm · 10px</div>
+    <div class="radius-box" style="border-radius:var(--radius-md)">md · 16px</div>
+    <div class="radius-box" style="border-radius:var(--radius-lg)">lg · 22px</div>
+    <div class="radius-box" style="border-radius:var(--radius-xl)">xl · 28px</div>
+  </div>
+
+  <h2>5. Đổ bóng (Shadow)</h2>
+  <div class="shadow-row">
+    <div class="shadow-box" style="box-shadow:var(--shadow-soft)">shadow-soft</div>
+    <div class="shadow-box" style="box-shadow:var(--shadow-pop)">shadow-pop</div>
+  </div>
+
+  <h2>6. Buttons</h2>
+  <div class="btn-row">
+    <button class="btn btn-primary">+ Thêm thói quen</button>
+    <button class="btn btn-ghost">Hủy</button>
+    <button class="btn btn-danger">Xóa thói quen</button>
+  </div>
+
+  <h2>7. Habit Card (component mẫu)</h2>
+  <div class="habit-card-demo">
+    <div class="emoji-badge-demo">🧘</div>
+    <div style="flex:1;">
+      <div style="font-weight:700; font-size:15.5px;">Thiền mỗi ngày</div>
+      <div style="margin-top:5px;"><span class="streak-pill-demo">🔥 12 ngày</span></div>
+    </div>
+    <div class="check-btn-demo">✓</div>
+  </div>
+
+  <h2>8. Huy chương (Medals) — mẫu render trực tiếp từ code</h2>
+  <p class="section-desc">4 hạng thường dùng đĩa tia nắng 2 tông màu. Hạng Tối Cao dùng khối <strong>kim cương nhiều mặt</strong> với sao mở khóa fill vàng đặc quanh đỉnh — mốc 5 sao có thêm <strong>vương miện</strong>. Mọi huy chương đều có 2 dải <strong>ruy băng đỏ</strong> hai bên như đeo trên cổ.</p>
+  <div class="ach-grid" id="medalGrid"></div>
+
+  <h2>9. Huy hiệu (Badges) — mẫu render trực tiếp từ code</h2>
+  <p class="section-desc">Không dùng 1 hình lặp lại cho cả bộ — <strong>mỗi mốc trong 7 mốc là 1 hình dạng thủ công riêng</strong>, tăng dần độ tinh xảo. Huy hiệu <strong>Streak</strong> đi theo họ khiên/giọt nước/kim cương/ngôi sao (tông cam–đỏ–tím–ngọc). Huy hiệu <strong>Mục tiêu</strong> đi theo họ tròn/lục giác/ngôi sao (tông xanh dương–tím–hồng), luôn có lõi <strong>bia ngắm + mũi tên</strong>. Mốc 1.000 của mỗi bộ có thêm vương miện + dải ruy băng ghi tên bộ.</p>
+  <div class="ach-grid" id="badgeGrid"></div>
+
+  <div class="footer-note">GoalStreak Design System · v1.2.0 · © 2026 Nguyen Trung Kien</div>
+</div>
+
+<script>
+// ---- render color swatches from the actual CSS custom properties ----
+const baseTokens = [
+  ['--bg','Nền chính'], ['--bg-grid','Nền phụ'], ['--surface','Bề mặt card'],
+  ['--ink','Chữ chính'], ['--ink-soft','Chữ phụ'], ['--ink-faint','Chữ mờ'],
+  ['--coral','Coral (accent chính)'], ['--coral-dark','Coral đậm'],
+  ['--teal','Teal (accent phụ)'], ['--gold','Gold (accent phụ)'], ['--line','Viền'],
+];
+const groupTokens = [
+  ['#FF5D3E','Sức khỏe'], ['#2F8FD8','Học tập'], ['#E8A93D','Công việc'], ['#8B7FD8','Tinh thần'],
+  ['#2A9D8F','Tài chính'], ['#E8639B','Sáng tạo'], ['#F08A3C','Kết nối'], ['#8B7E70','Khác'],
+];
+function paintSwatches(containerId, tokens, isVar){
+  const el = document.getElementById(containerId);
+  const cs = getComputedStyle(document.documentElement);
+  tokens.forEach(([key,label])=>{
+    const hex = isVar ? cs.getPropertyValue(key).trim() : key;
+    const div = document.createElement('div');
+    div.className = 'swatch';
+    div.innerHTML = `<div class="swatch-color" style="background:${hex}"></div>
+      <div class="swatch-meta"><div class="swatch-name">${label}</div><div class="swatch-hex">${isVar ? key+' · ' : ''}${hex}</div></div>`;
+    el.appendChild(div);
+  });
+}
+paintSwatches('baseColors', baseTokens, true);
+paintSwatches('groupColors', groupTokens, false);
+
+// ---- type scale ----
+const typeEl = document.getElementById('typeScale');
+[[900,28,'Tiêu đề lớn (h1)'],[800,19,'Tiêu đề khu vực (h2)'],[700,15.5,'Tên thói quen / nhãn'],[600,14.5,'Nút bấm'],[400,13.5,'Nội dung phụ']]
+.forEach(([w,s,label])=>{
+  const row = document.createElement('div'); row.className='type-row';
+  row.innerHTML = `<span class="type-label">${w} / ${s}px</span><span class="type-sample" style="font-weight:${w};font-size:${s}px;">${label} — Thói quen tốt bắt đầu từ hôm nay</span>`;
+  typeEl.appendChild(row);
+});
+
+// ==== badges.js — embedded verbatim so this preview never drifts from the real app ====
+function polarPoint(cx, cy, r, angleDeg){
+    const a = (angleDeg - 90) * Math.PI / 180;
+    return [cx + r * Math.cos(a), cy + r * Math.sin(a)];
+}
+function getCrownSVG(cx, cy, scale) {
+    return `<g transform="translate(${cx - 50*scale}, ${cy - 38*scale}) scale(${scale})">
+        <path d="M25,32 Q50,40 75,32 L68,22 Q50,28 32,22 Z" fill="#D97706"/>
+        <path d="M22,32 L15,10 L33,20 L50,0 L67,20 L85,10 L78,32 Z" fill="#FBBF24" stroke="#92400E" stroke-width="1.5" stroke-linejoin="round"/>
+        <path d="M20,32 L80,32 L78,37 L22,37 Z" fill="#78350F"/>
+        <path d="M22,32 L78,32 L76,34 L24,34 Z" fill="#B45309"/>
+        <circle cx="50" cy="0" r="3.5" fill="#FFFFFF" stroke="#92400E" stroke-width="1"/>
+        <circle cx="15" cy="10" r="2.5" fill="#FFFFFF" stroke="#92400E" stroke-width="1"/>
+        <circle cx="85" cy="10" r="2.5" fill="#FFFFFF" stroke="#92400E" stroke-width="1"/>
+        <circle cx="33" cy="20" r="2.5" fill="#FFFFFF" stroke="#92400E" stroke-width="1"/>
+        <circle cx="67" cy="20" r="2.5" fill="#FFFFFF" stroke="#92400E" stroke-width="1"/>
+        <polygon points="50,15 54,21 50,27 46,21" fill="#EF4444"/>
+        <polygon points="33,28 35,31 33,34 31,31" fill="#3B82F6"/>
+        <polygon points="67,28 69,31 67,34 65,31" fill="#3B82F6"/>
+    </g>`;
+}
+function getThinRibbonSVG() {
+    return `<path d="M40,-10 L58,25 L62,25 L80,-10 L74,-10 L60,16 L46,-10 Z" fill="#B91C1C" />
+    <circle cx="60" cy="27" r="4" fill="none" stroke="#FBBF24" stroke-width="2"/>`;
+}
+function getBottomRibbon(text, type) {
+    const isStreak = type === 'streak';
+    const bg = isStreak ? '#B91C1C' : '#F59E0B';
+    const border = isStreak ? '#FBBF24' : '#B45309';
+    const textColor = isStreak ? '#FFFFFF' : '#78350F';
+    return `<path d="M30,82 L90,82 L85,102 L60,97 L35,102 Z" fill="${bg}" stroke="${border}" stroke-width="2" stroke-linejoin="round"/>
+    <text x="60" y="94" text-anchor="middle" font-family="Arial, sans-serif" font-weight="bold" font-size="11" fill="${textColor}">${text}</text>`;
+}
+function getBullseye(cx, cy, ringColor, coreColor, arrowColor) {
+    return `<circle cx="${cx}" cy="${cy}" r="24" fill="none" stroke="${ringColor}" stroke-width="3" opacity="0.8"/>
+    <circle cx="${cx}" cy="${cy}" r="17" fill="${coreColor}" />
+    <path d="M${cx+27},${cy-27} L${cx+9},${cy-9}" stroke="${arrowColor}" stroke-width="2.5" stroke-linecap="round"/>
+    <polygon points="${cx+9},${cy-9} ${cx+13},${cy-18} ${cx+18},${cy-13}" fill="${arrowColor}"/>`;
+}
+const TIER_COLORS = {
+    green:   { main:'#22C55E', light:'#4ADE80', dark:'#16A34A', ring:'#15803D' },
+    bronze:  { main:'#F97316', light:'#FDBA74', dark:'#C2410C', ring:'#9A3412' },
+    silver:  { main:'#CBD5E1', light:'#F1F5F9', dark:'#94A3B8', ring:'#64748B' },
+    gold:    { main:'#FDE047', light:'#FEF08A', dark:'#EAB308', ring:'#CA8A04' },
+    supreme: { main:'#8B5CF6', light:'#DDD6FE', dark:'#6D28D9', ring:'#FBBF24' },
+};
+function sunMedalSVG(tier) {
+    const c = TIER_COLORS[tier];
+    let rays = '';
+    for(let i=0; i<12; i++) rays += `<polygon points="60,32 65,48 55,48" transform="rotate(${i*30} 60 65)" fill="${c.light}" />`;
+    return `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+        ${getThinRibbonSVG()}
+        <circle cx="60" cy="70" r="40" fill="${c.ring}" />
+        <circle cx="60" cy="70" r="38.5" fill="${c.main}" />
+        <g transform="translate(0, 5)">${rays}</g>
+        <circle cx="60" cy="70" r="22" fill="${c.dark}" />
+        <circle cx="60" cy="70" r="16" fill="none" stroke="${c.ring}" stroke-width="2" stroke-dasharray="4 4" opacity="0.8"/>
+    </svg>`;
+}
+function supremeMedalSVG(stars) {
+    const c = TIER_COLORS['supreme'];
+    let starsArr = '';
+    const step = 28;
+    for(let i=0; i<stars; i++) {
+        const angle = (i - (stars - 1) / 2) * step;
+        const [sx, sy] = polarPoint(60, 70, 28, angle);
+        starsArr += `<g transform="translate(${sx}, ${sy}) scale(1.4)"><polygon points="0,-4 1.5,-1.5 4.5,-1.5 2,0.5 3,3.5 0,1.5 -3,3.5 -2,0.5 -4.5,-1.5 -1.5,-1.5" fill="#FBBF24" stroke="#92400E" stroke-width="0.5" stroke-linejoin="round"/></g>`;
+    }
+    return `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+        ${getThinRibbonSVG()}
+        <circle cx="60" cy="70" r="40" fill="${c.main}" stroke="${c.ring}" stroke-width="1.5"/>
+        <circle cx="60" cy="70" r="37.5" fill="${c.light}" />
+        ${starsArr}
+        <g transform="translate(0, 15)">
+            <polygon points="60,40 82,53 60,80 38,53" fill="#6D28D9" />
+            <polygon points="38,53 60,40 82,53 60,58" fill="#8B5CF6" />
+            <polygon points="60,40 82,53 60,58" fill="#A78BFA" />
+            <polygon points="60,80 82,53 60,58" fill="#5B21B6" />
+        </g>
+        ${stars === 5 ? getCrownSVG(60, 38, 0.65) : ''}
+    </svg>`;
+}
+function getStreakBadge(val) {
+    let shape = '', ribbon = '', crown = '', textY = 65, textSize = 32;
+    if(val === 10) { shape = `<path d="M30,20 L90,20 L90,90 L60,110 L30,90 Z" fill="#F97316" stroke="#C2410C" stroke-width="2"/><text x="60" y="85" text-anchor="middle" font-family="Arial" font-weight="bold" font-size="12" fill="#78350F">STREAK</text>`; }
+    else if(val === 20) { shape = `<path d="M25,25 L95,25 L95,95 L60,80 L25,95 Z" fill="#EF4444" stroke="#991B1B" stroke-width="2"/><text x="60" y="76" text-anchor="middle" font-family="Arial" font-weight="bold" font-size="11" fill="#FEF2F2">STREAK</text>`; textY = 58; }
+    else if(val === 50) { shape = `<path d="M20,20 L100,20 L100,60 Q100,105 60,115 Q20,105 20,60 Z" fill="#BE123C" stroke="#881337" stroke-width="2"/><polygon points="60,25 65,35 75,35 67,42 70,52 60,45 50,52 53,42 45,35 55,35" fill="#FDA4AF" opacity="0.3"/><text x="60" y="88" text-anchor="middle" font-family="Arial" font-weight="bold" font-size="12" fill="#FFC107">STREAK</text>`; }
+    else if(val === 100) { shape = `<polygon points="60,15 100,35 100,85 60,105 20,85 20,35" fill="#7C3AED" stroke="#4C1D95" stroke-width="2"/><path d="M30,45 L25,60 L35,60 L30,75 M90,45 L95,60 L85,60 L90,75" stroke="#DDD6FE" stroke-width="2" fill="none" stroke-linecap="round"/><text x="60" y="88" text-anchor="middle" font-family="Arial" font-weight="bold" font-size="12" fill="#E9D5FF">STREAK</text>`; }
+    else if(val === 200) { shape = `<polygon points="60,10 105,55 60,100 15,55" fill="#4338CA" stroke="#312E81" stroke-width="2"/><polygon points="60,20 93,55 60,90 27,55" fill="none" stroke="#818CF8" stroke-width="2"/>`; ribbon = getBottomRibbon('STREAK', 'streak'); textY = 62; }
+    else if(val === 500) { shape = `<path d="M60,10 L75,35 L105,35 L85,60 L100,90 L60,75 L20,90 L35,60 L15,35 L45,35 Z" fill="#0D9488" stroke="#134E4A" stroke-width="2"/><circle cx="60" cy="55" r="28" fill="none" stroke="#5EEAD4" stroke-width="1.5" stroke-dasharray="4 4"/>`; ribbon = getBottomRibbon('STREAK', 'streak'); textY = 62; textSize = 28; }
+    else if(val === 1000) { shape = `<path d="M60,15 L70,35 L95,35 L80,55 L90,80 L60,70 L30,80 L40,55 L25,35 L50,35 Z" fill="#0F766E" stroke="#FBBF24" stroke-width="3"/><circle cx="60" cy="53" r="22" fill="#14B8A6" stroke="#042F2E" stroke-width="2"/>`; ribbon = getBottomRibbon('STREAK', 'streak'); crown = getCrownSVG(60, 28, 0.6); textY = 62; textSize = 24; }
+    return `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">${shape}<text x="60" y="${textY}" text-anchor="middle" font-family="Arial, sans-serif" font-weight="900" font-size="${textSize}" fill="#FFFFFF">${val}</text>${ribbon}${crown}</svg>`;
+}
+function getGoalBadge(val) {
+    let shape = '', ribbon = '', crown = '', textY = 60, textSize = 18, bullseye = '';
+    if(val === 10) { shape = `<circle cx="60" cy="55" r="42" fill="#0EA5E9" />`; bullseye = getBullseye(60, 55, '#BAE6FD', '#0284C7', '#FFFFFF'); shape += `<text x="60" y="85" text-anchor="middle" font-family="Arial" font-weight="bold" font-size="10" fill="#0C4A6E">GOALS</text>`; }
+    else if(val === 20) { shape = `<circle cx="60" cy="55" r="44" fill="#3B82F6" stroke="#1E40AF" stroke-width="2" stroke-dasharray="6 4"/>`; bullseye = getBullseye(60, 55, '#BFDBFE', '#1E3A8A', '#FBBF24'); shape += `<text x="60" y="88" text-anchor="middle" font-family="Arial" font-weight="bold" font-size="11" fill="#EFF6FF">GOALS</text>`; }
+    else if(val === 50) { shape = `<circle cx="60" cy="55" r="45" fill="#4F46E5" /><circle cx="60" cy="55" r="38" fill="none" stroke="#C7D2FE" stroke-width="1.5" stroke-dasharray="2 4"/>`; bullseye = getBullseye(60, 55, '#A5B4FC', '#312E81', '#FBBF24'); shape += `<text x="60" y="88" text-anchor="middle" font-family="Arial" font-weight="bold" font-size="11" fill="#E0E7FF">GOALS</text>`; }
+    else if(val === 100) { shape = `<polygon points="60,10 99,32.5 99,77.5 60,100 21,77.5 21,32.5" fill="#8B5CF6" />`; bullseye = getBullseye(60, 55, '#DDD6FE', '#4C1D95', '#FBBF24'); shape += `<text x="60" y="88" text-anchor="middle" font-family="Arial" font-weight="bold" font-size="11" fill="#2E1065">GOALS</text>`; }
+    else if(val === 200) { shape = `<polygon points="60,10 99,32.5 99,77.5 60,100 21,77.5 21,32.5" fill="#D946EF" stroke="#701A75" stroke-width="3"/><polygon points="60,17 93,36 93,74 60,93 27,74 27,36" fill="none" stroke="#FDF4FF" stroke-width="1"/>`; bullseye = getBullseye(60, 50, '#F5D0FE', '#86198F', '#FBBF24'); ribbon = getBottomRibbon('GOALS', 'goal'); textY = 55; }
+    else if(val === 500) { shape = `<path d="M60,8 L72,30 L95,30 L78,48 L85,73 L60,58 L35,73 L42,48 L25,30 L48,30 Z" fill="#F43F5E" stroke="#9F1239" stroke-width="2"/>`; bullseye = getBullseye(60, 48, '#FECDD3', '#9F1239', '#FBBF24'); ribbon = getBottomRibbon('GOALS', 'goal'); textY = 53; }
+    else if(val === 1000) { shape = `<path d="M60,10 L68,28 L88,20 L80,38 L100,50 L80,62 L88,80 L68,72 L60,90 L52,72 L32,80 L40,62 L20,50 L40,38 L32,20 L52,28 Z" fill="#FF7E67" stroke="#FBBF24" stroke-width="2"/>`; bullseye = getBullseye(60, 50, '#FFD0C7', '#E84C3D', '#FBBF24'); ribbon = getBottomRibbon('GOALS', 'goal'); crown = getCrownSVG(60, 25, 0.6); textY = 55; }
+    return `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">${shape}${bullseye}<text x="60" y="${textY}" text-anchor="middle" font-family="Arial, sans-serif" font-weight="900" font-size="${textSize}" fill="#FFFFFF">${val}</text>${ribbon}${crown}</svg>`;
+}
+
+// ---- populate the two achievement grids straight from the real render functions ----
+const medalGrid = document.getElementById('medalGrid');
+[['Khởi Đầu Xanh','green',null],['Đồng','bronze',null],['Bạc','silver',null],['Vàng','gold',null],['Tối Cao 1★','supreme',1],['Tối Cao 3★','supreme',3],['Tối Cao 5★','supreme',5]]
+.forEach(([label,tier,stars])=>{
+  const svg = tier==='supreme' ? supremeMedalSVG(stars) : sunMedalSVG(tier);
+  const item = document.createElement('div'); item.className='ach-item';
+  item.innerHTML = svg + `<span class="ach-item-label">${label}</span>`;
+  medalGrid.appendChild(item);
+});
+const badgeGrid = document.getElementById('badgeGrid');
+[10,50,100,200,500,1000].forEach(n=>{
+  const item = document.createElement('div'); item.className='ach-item';
+  item.innerHTML = getStreakBadge(n) + `<span class="ach-item-label">Streak ${n}</span>`;
+  badgeGrid.appendChild(item);
+});
+[10,50,100,200,500,1000].forEach(n=>{
+  const item = document.createElement('div'); item.className='ach-item';
+  item.innerHTML = getGoalBadge(n) + `<span class="ach-item-label">Mục tiêu ${n}</span>`;
+  badgeGrid.appendChild(item);
+});
+</script>
+</body>
+</html>
