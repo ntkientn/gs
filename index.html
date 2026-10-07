@@ -259,37 +259,59 @@
 </div>
 
 <!-- ============ DRAWER MENU (Right Slide-out) ============ -->
-<div id="drawerOverlay" class="drawer-overlay" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 998;"></div>
+<div id="drawerOverlay" class="drawer-overlay"></div>
 
-<div id="profileDrawer" class="profile-drawer" style="position: fixed; top: 0; right: -300px; width: 280px; height: 100vh; background: var(--bg-color, #FFFBF3); z-index: 999; transition: right 0.3s ease; box-shadow: -4px 0 15px rgba(0,0,0,0.1); padding: 24px; display: flex; flex-direction: column; gap: 24px;">
-  <div style="display: flex; justify-content: space-between; align-items: center;">
-    <h3 style="margin: 0; font-size: 18px;" data-i18n="drawer.title">Tài khoản & Cài đặt</h3>
-    <button id="closeDrawerBtn" style="background: none; border: none; font-size: 20px; cursor: pointer;">✕</button>
+<div id="profileDrawer" class="profile-drawer">
+  
+  <div class="drawer-head">
+    <h3 class="drawer-title" data-i18n="drawer.title">Tài khoản & Cài đặt</h3>
+    <button id="closeDrawerBtn" class="drawer-close">✕</button>
   </div>
 
-  <div id="drawerOfflineState" style="background: #fff; padding: 16px; border-radius: 12px; border: 1px solid #ddd; text-align: center;">
-    <p style="font-size: 13px; color: #666; margin-bottom: 12px;" data-i18n="drawer.syncDesc">Đăng nhập để đồng bộ thói quen trên nhiều thiết bị.</p>
-    <button id="loginBtn" class="btn btn-outline" style="width: 100%;">☁️ <span data-i18n="auth.login">Đăng nhập</span></button>
-  </div>
+  <!-- Trạng thái 1: CHƯA ĐĂNG NHẬP -->
+  <div id="drawerOfflineState" class="drawer-card">
+    <p class="auth-desc" data-i18n="drawer.syncDesc">Đăng nhập để đồng bộ thói quen trên nhiều thiết bị.</p>
+    
+    <!-- Nút Google sạch sẽ -->
+    <button id="loginBtn" class="btn btn-ghost btn-google">
+      <svg viewBox="0 0 48 48">
+        <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.7 17.74 9.5 24 9.5z"/>
+        <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+        <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+        <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+      </svg>
+      <span data-i18n="auth.google">Tiếp tục với Google</span>
+    </button>
 
-  <div id="drawerOnlineState" style="display: none; background: #fff; padding: 16px; border-radius: 12px; border: 1px solid #ddd; text-align: center;">
-    <p id="userNameDisplay" style="font-weight: bold; margin-bottom: 4px;"></p>
-    <p style="font-size: 12px; color: #2A9D8F; margin-bottom: 16px;" data-i18n="drawer.syncing">✓ Đang đồng bộ</p>
-    <button id="logoutBtn" class="btn" style="background: #f5f5f5; color: #333; width: 100%;"><span data-i18n="auth.logout">Đăng xuất</span></button>
-  </div>
+    <div class="auth-divider" data-i18n="auth.or">— HOẶC —</div>
 
-  <hr style="border-top: 1px solid #ddd; margin: 0;">
-
-  <div class="settings-section">
-    <div style="display: flex; justify-content: space-between; align-items: center;">
-      <span style="font-size: 14px; font-weight: 500;">Ngôn ngữ / Language</span>
-      <!-- Nút đổi ngôn ngữ được dời vào đây -->
-      <button id="langToggle" class="lang-toggle" type="button" aria-label="Đổi ngôn ngữ">
-        <span class="lang-opt is-active" data-lang="vi">VI</span>
-        <span class="lang-sep">/</span>
-        <span class="lang-opt" data-lang="en">EN</span>
-      </button>
+    <input type="email" id="emailInput" class="text-input auth-input" placeholder="Email" data-i18n-placeholder="auth.email">
+    <input type="password" id="passwordInput" class="text-input auth-input last" placeholder="Mật khẩu" data-i18n-placeholder="auth.password">
+    
+    <div class="auth-actions">
+      <button id="loginEmailBtn" class="btn btn-primary" data-i18n="auth.emailLogin">Đăng nhập</button>
+      <button id="registerEmailBtn" class="btn btn-ghost" data-i18n="auth.emailReg">Đăng ký</button>
     </div>
+  </div>
+
+  <!-- Trạng thái 2: ĐÃ ĐĂNG NHẬP -->
+  <div id="drawerOnlineState" class="drawer-card" style="display: none;">
+    <p id="userNameDisplay" style="font-weight: bold; font-size: 16px; margin-bottom: 6px;"></p>
+    <p style="font-size: 13px; color: #2A9D8F; margin-bottom: 20px;" data-i18n="drawer.syncing">✓ Đang đồng bộ</p>
+    <button id="logoutBtn" class="btn" style="background: #f5f5f5; color: #333; width: 100%; padding: 10px 0; font-weight: 500; border-radius: 8px;">Đăng xuất</button>
+  </div>
+
+  <hr class="drawer-divider">
+
+  <!-- Cài đặt chung -->
+  <div class="settings-section">
+    <span class="settings-label">Ngôn ngữ / Language</span>
+    <!-- Cục Toggle VI/EN -->
+    <button id="langToggle" class="lang-toggle" type="button" aria-label="Đổi ngôn ngữ">
+      <span class="lang-opt is-active" data-lang="vi">VI</span>
+      <span class="lang-sep">/</span>
+      <span class="lang-opt" data-lang="en">EN</span>
+    </button> 
   </div>
 </div>
 
