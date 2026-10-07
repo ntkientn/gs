@@ -62,6 +62,11 @@ const I18N = {
     "celebrate.goalText": "Bạn đã chinh phục trọn vẹn mục tiêu của thói quen này. Thói quen được đóng lại và chứng nhận!",
     "celebrate.medalTitle": "Mở khóa huy chương mới!",
     "celebrate.badgeTitle": "Mở khóa huy hiệu mới!",
+    "auth.login": "Đăng nhập",
+    "auth.logout": "Đăng xuất",
+    "drawer.title": "Tài khoản & Cài đặt",
+    "drawer.syncDesc": "Đăng nhập để đồng bộ thói quen trên nhiều thiết bị.",
+    "drawer.syncing": "✓ Đang đồng bộ",
   },
   en: {
     "nav.achievements": "Achievements",
@@ -122,6 +127,11 @@ const I18N = {
     "celebrate.goalText": "You've fully achieved this habit's goal. It's now closed and certified!",
     "celebrate.medalTitle": "New medal unlocked!",
     "celebrate.badgeTitle": "New badge unlocked!",
+    "auth.login": "Log in",
+    "auth.logout": "Log out",
+    "drawer.title": "Account & Settings",
+    "drawer.syncDesc": "Log in to sync your habits across devices.",
+    "drawer.syncing": "✓ Syncing enabled",
   }
 };
 
