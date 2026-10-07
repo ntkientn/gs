@@ -46,26 +46,28 @@
       </span>
       <span class="brand-name">Goal<span class="brand-accent">Streak</span></span>
     </div>
+
     <div class="topbar-actions">
-      <button id="langToggle" class="lang-toggle" type="button" aria-label="Đổi ngôn ngữ">
-        <span class="lang-opt is-active" data-lang="vi">VI</span>
-        <span class="lang-sep">/</span>
-        <span class="lang-opt" data-lang="en">EN</span>
-      </button>
+
+      <div class="topbar-actions">
+      <!-- Nút Thành tích (Giữ nguyên SVG của anh) -->
       <button id="openAchievements" class="icon-btn" type="button" data-i18n-title="nav.achievements">
         <svg viewBox="0 0 24 24" width="24" height="24" xmlns="http://www.w3.org/2000/svg">
-          <!-- Dải ruy băng bên trái (Màu cam san hô) -->
           <path d="M6 2h4l2 6-4 2z" fill="var(--coral)"/>
-          <!-- Dải ruy băng bên phải (Màu cam san hô đậm tạo chiều sâu) -->
           <path d="M18 2h-4l-2 6 4 2z" fill="var(--coral-dark)"/>
-          <!-- Khối huy chương vàng nguyên khối -->
           <circle cx="12" cy="14" r="8" fill="var(--gold)"/>
-          <!-- Lõi sáng của huy chương -->
           <circle cx="12" cy="14" r="5.5" fill="var(--gold-tint)"/>
-          <!-- Ngôi sao 5 cánh tinh xảo ở giữa -->
           <path d="M12 10.5l1.1 2.4 2.6.2-1.9 1.7.5 2.5-2.3-1.3-2.3 1.3.5-2.5-1.9-1.7 2.6-.2L12 10.5z" fill="var(--gold)"/>
         </svg>
       </button>
+
+      <!-- Nút Profile mở Menu Trượt (Chỉ chứa Icon/Avatar) -->
+      <button id="profileMenuBtn" class="avatar-btn" style="width: 36px; height: 36px; border-radius: 50%; border: 2px solid var(--gold); background: #fff; cursor: pointer; display: flex; justify-content: center; align-items: center; overflow: hidden; padding: 0; margin-left: 8px;">
+        <span id="offlineAvatarIcon" style="font-size: 18px;">👤</span>
+        <img id="onlineAvatarImg" src="" style="display: none; width: 100%; height: 100%; object-fit: cover;">
+      </button>
+    </div>
+
     </div>
   </div>
 </header>
@@ -256,6 +258,41 @@
   </div>
 </div>
 
+<!-- ============ DRAWER MENU (Right Slide-out) ============ -->
+<div id="drawerOverlay" class="drawer-overlay" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 998;"></div>
+
+<div id="profileDrawer" class="profile-drawer" style="position: fixed; top: 0; right: -300px; width: 280px; height: 100vh; background: var(--bg-color, #FFFBF3); z-index: 999; transition: right 0.3s ease; box-shadow: -4px 0 15px rgba(0,0,0,0.1); padding: 24px; display: flex; flex-direction: column; gap: 24px;">
+  <div style="display: flex; justify-content: space-between; align-items: center;">
+    <h3 style="margin: 0; font-size: 18px;" data-i18n="drawer.title">Tài khoản & Cài đặt</h3>
+    <button id="closeDrawerBtn" style="background: none; border: none; font-size: 20px; cursor: pointer;">✕</button>
+  </div>
+
+  <div id="drawerOfflineState" style="background: #fff; padding: 16px; border-radius: 12px; border: 1px solid #ddd; text-align: center;">
+    <p style="font-size: 13px; color: #666; margin-bottom: 12px;" data-i18n="drawer.syncDesc">Đăng nhập để đồng bộ thói quen trên nhiều thiết bị.</p>
+    <button id="loginBtn" class="btn btn-outline" style="width: 100%;">☁️ <span data-i18n="auth.login">Đăng nhập</span></button>
+  </div>
+
+  <div id="drawerOnlineState" style="display: none; background: #fff; padding: 16px; border-radius: 12px; border: 1px solid #ddd; text-align: center;">
+    <p id="userNameDisplay" style="font-weight: bold; margin-bottom: 4px;"></p>
+    <p style="font-size: 12px; color: #2A9D8F; margin-bottom: 16px;" data-i18n="drawer.syncing">✓ Đang đồng bộ</p>
+    <button id="logoutBtn" class="btn" style="background: #f5f5f5; color: #333; width: 100%;"><span data-i18n="auth.logout">Đăng xuất</span></button>
+  </div>
+
+  <hr style="border-top: 1px solid #ddd; margin: 0;">
+
+  <div class="settings-section">
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+      <span style="font-size: 14px; font-weight: 500;">Ngôn ngữ / Language</span>
+      <!-- Nút đổi ngôn ngữ được dời vào đây -->
+      <button id="langToggle" class="lang-toggle" type="button" aria-label="Đổi ngôn ngữ">
+        <span class="lang-opt is-active" data-lang="vi">VI</span>
+        <span class="lang-sep">/</span>
+        <span class="lang-opt" data-lang="en">EN</span>
+      </button>
+    </div>
+  </div>
+</div>
+
 <script src="js/i18n.js"></script>
 <script src="js/quotes.js"></script>
 <script src="js/badges.js"></script>
@@ -263,5 +300,8 @@
 <script src="js/calendar.js"></script>
 <script src="js/gamification.js"></script>
 <script src="js/app.js"></script>
+<!-- Thêm dòng Script Firebase Sync -->
+<script type="module" src="js/firebase-sync.js"></script>
+
 </body>
 </html>
