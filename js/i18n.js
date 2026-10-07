@@ -67,6 +67,12 @@ const I18N = {
     "drawer.title": "Tài khoản & Cài đặt",
     "drawer.syncDesc": "Đăng nhập để đồng bộ thói quen trên nhiều thiết bị.",
     "drawer.syncing": "✓ Đang đồng bộ",
+    "auth.google": "Tiếp tục với Google",
+    "auth.or": "— HOẶC —",
+    "auth.email": "Email",
+    "auth.password": "Mật khẩu",
+    "auth.emailLogin": "Đăng nhập",
+    "auth.emailReg": "Đăng ký"
   },
   en: {
     "nav.achievements": "Achievements",
@@ -132,6 +138,12 @@ const I18N = {
     "drawer.title": "Account & Settings",
     "drawer.syncDesc": "Log in to sync your habits across devices.",
     "drawer.syncing": "✓ Syncing enabled",
+    "auth.google": "Continue with Google",
+    "auth.or": "— OR —",
+    "auth.email": "Email",
+    "auth.password": "Password",
+    "auth.emailLogin": "Sign in",
+    "auth.emailReg": "Sign up"
   }
 };
 
