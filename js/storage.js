@@ -1,5 +1,5 @@
 /* =========================================================
-   HabitStreak — Storage & core data logic
+   HabitStreak — Storage & core data logic (Firebase Sync Ready)
    ========================================================= */
 const STORAGE_KEY = 'goalstreak_v1';
 
@@ -15,22 +15,22 @@ const GROUPS = [
 ];
 
 const EMOJI_OPTIONS = [
-  '☀️','🌅','🚶‍♀️','🏃‍♂️','🚴','🏋️‍♂️','🏊‍♀️','✍️','🎯','👩‍💻',
-  '💵','🧑‍💼','🧑‍⚕️','🧑‍🎓','🧑‍🏫','⚡','🚩','🏁','🔥','⏰',
-  '💧','🥛','🥚','🥗','🥦','🍎','💊','🧠','📓','📖',
-  '💐','🪴','🌳','🐶','🐱','🐠','🦅','🚰','🎧','🎸',
-  '🎤','🥁','🎹','👶','💝','👨‍👩‍👧','🎒','🧹','🥾','👕',
-  '🚿','🪥','🧁','🙏','👏','🧘‍♀️','🛌','🚫','🚭','📵'
+  '💧', '🍎', '🥗', '💊', 
+  '🏃‍♂️', '🏋️‍♀️', '🚴', '🧘‍♀️',
+  '📚', '💻', '🧠', '✍️', 
+  '💰', '📈', '🛒', '🎯', 
+  '🎨', '🎸', '🎮', '🪴',
+  '🧹', '🛌', '🌅', '🌙'
 ];
 
 const DEFAULT_STATE = () => ({
   lang: 'vi',
   habits: [],
-  celebratedIds: [],   // medal/badge ids already shown via celebration modal
+  celebratedIds: [],   
   seedInstalled: true,
 });
 
-let STATE = load();
+var STATE = load();
 
 function load(){
   try{
@@ -47,6 +47,10 @@ function load(){
 function save(){
   try{
     localStorage.setItem(STORAGE_KEY, JSON.stringify(STATE));
+    // Tự động sync ngầm lên Firestore nếu đang đăng nhập
+    if(typeof window.pushDataToFirebase === 'function') {
+      window.pushDataToFirebase();
+    }
   }catch(e){
     console.warn('HabitStreak: could not save to storage.', e);
   }
@@ -97,7 +101,7 @@ function computeStreaks(completedDates){
 }
 
 function computeHabitScore(habit){
-  let score = 1; // creation bonus
+  let score = 1; 
   score += habit.completedDates.length * 10;
   if(habit.status === 'completed') score += 100;
   return score;
@@ -115,7 +119,6 @@ function maxStreakAcrossHabits(){
   return STATE.habits.reduce((m,h)=> Math.max(m, h.longestStreak||0), 0);
 }
 
-/* ---------- recompute a single habit's derived fields ---------- */
 function recomputeHabit(habit){
   const { current, longest } = computeStreaks(habit.completedDates);
   const prevLongest = habit.longestStreak || 0;
@@ -136,6 +139,7 @@ function createHabit({ name, emoji, groupId, goal }){
     id: 'h_' + Date.now().toString(36) + Math.random().toString(36).slice(2,6),
     name, emoji, groupId, goal,
     createdAt: todayStr(),
+    updatedAt: Date.now(), // Đánh dấu thời gian để Sync
     completedDates: [],
     currentStreak: 0,
     longestStreak: 0,
@@ -151,6 +155,7 @@ function createHabit({ name, emoji, groupId, goal }){
 function updateHabit(id, patch){
   const h = STATE.habits.find(h=>h.id===id);
   if(!h) return null;
+  patch.updatedAt = Date.now(); // Cập nhật thời gian
   Object.assign(h, patch);
   save();
   return h;
@@ -165,11 +170,10 @@ function getHabit(id){
   return STATE.habits.find(h=>h.id===id);
 }
 
-/** Toggle completion for a date. Returns info for celebration handling. */
 function toggleDate(habitId, dateStr){
   const h = getHabit(habitId);
   if(!h) return null;
-  if(h.status === 'completed') return null; // goal reached: habit is locked/closed
+  if(h.status === 'completed') return null;
   const idx = h.completedDates.indexOf(dateStr);
   let didComplete;
   if(idx >= 0){
@@ -180,6 +184,48 @@ function toggleDate(habitId, dateStr){
     didComplete = true;
   }
   const { newRecord, justHitGoal } = recomputeHabit(h);
+  h.updatedAt = Date.now(); // Cập nhật thời gian khi thay đổi tiến độ
   save();
   return { habit:h, didComplete, newRecord, justHitGoal };
+}
+
+/* ---------- SYNC & MERGE LOGIC ---------- */
+function mergeStates(localState, cloudState) {
+  if (!cloudState || !cloudState.habits) return localState;
+  
+  const mergedHabits = [];
+  const localMap = new Map(localState.habits.map(h => [h.id, h]));
+  const cloudMap = new Map(cloudState.habits.map(h => [h.id, h]));
+  const allIds = new Set([...localMap.keys(), ...cloudMap.keys()]);
+
+  allIds.forEach(id => {
+    const localHabit = localMap.get(id);
+    const cloudHabit = cloudMap.get(id);
+
+    if (localHabit && !cloudHabit) {
+      mergedHabits.push(localHabit);
+    } else if (!localHabit && cloudHabit) {
+      mergedHabits.push(cloudHabit);
+    } else {
+      // Có ở cả 2 nơi -> Tiến hành Merge
+      // 1. Gộp mảng completedDates (loại bỏ trùng lặp)
+      const mergedDates = [...new Set([...localHabit.completedDates, ...cloudHabit.completedDates])].sort();
+      
+      // 2. Lấy thông tin (name, emoji, goal...) từ bản có updatedAt mới hơn
+      const localTime = localHabit.updatedAt || 0;
+      const cloudTime = cloudHabit.updatedAt || 0;
+      const baseHabit = localTime >= cloudTime ? localHabit : cloudHabit;
+      
+      const mergedHabit = { ...baseHabit, completedDates: mergedDates };
+      
+      // 3. Tính toán lại Streak và Score sau khi gộp ngày
+      recomputeHabit(mergedHabit);
+      mergedHabits.push(mergedHabit);
+    }
+  });
+
+  return {
+    ...localState,
+    habits: mergedHabits.sort((a, b) => b.createdAt.localeCompare(a.createdAt))
+  };
 }
