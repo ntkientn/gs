@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
 import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
 
 // 1. CẤU HÌNH FIREBASE 
@@ -95,6 +95,51 @@ document.getElementById('logoutBtn').addEventListener('click', () => {
   });
 });
 
+// ==========================================
+// THÊM MỚI: LOGIC ĐĂNG NHẬP BẰNG EMAIL & PASSWORD
+// ==========================================
+const emailInput = document.getElementById('emailInput');
+const passInput = document.getElementById('passwordInput');
+
+// 1. Nút Đăng ký
+document.getElementById('registerEmailBtn').addEventListener('click', () => {
+  const email = emailInput.value.trim();
+  const pass = passInput.value;
+  
+  if (!email || !pass) return alert("Vui lòng nhập Email và Mật khẩu!");
+  if (pass.length < 6) return alert("Mật khẩu phải có ít nhất 6 ký tự!");
+
+  createUserWithEmailAndPassword(auth, email, pass)
+    .then(() => {
+      emailInput.value = '';
+      passInput.value = '';
+      if (typeof showToast === 'function') showToast("Đăng ký thành công!");
+    })
+    .catch(err => {
+      if (err.code === 'auth/email-already-in-use') alert("Email này đã được sử dụng!");
+      else alert("Lỗi đăng ký: " + err.message);
+    });
+});
+
+// 2. Nút Đăng nhập
+document.getElementById('loginEmailBtn').addEventListener('click', () => {
+  const email = emailInput.value.trim();
+  const pass = passInput.value;
+
+  if (!email || !pass) return alert("Vui lòng nhập Email và Mật khẩu!");
+
+  signInWithEmailAndPassword(auth, email, pass)
+    .then(() => {
+      emailInput.value = '';
+      passInput.value = '';
+      if (typeof showToast === 'function') showToast("Đăng nhập thành công!");
+    })
+    .catch(err => {
+      if (err.code === 'auth/invalid-credential') alert("Sai email hoặc mật khẩu!");
+      else alert("Lỗi đăng nhập: " + err.message);
+    });
+});
+
 // Logic mở/đóng Drawer
 const profileBtn = document.getElementById('profileMenuBtn');
 const drawer = document.getElementById('profileDrawer');
@@ -107,7 +152,7 @@ function openDrawer() {
 }
 
 function closeDrawer() {
-  drawer.style.right = '-300px';
+  drawer.style.right = '-360px'; 
   setTimeout(() => overlay.style.display = 'none', 300);
 }
 
