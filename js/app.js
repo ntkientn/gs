@@ -1,11 +1,11 @@
 /* =========================================================
    HabitStreak — App orchestration
    ========================================================= */
-const GOAL_PRESETS = [7, 14, 21, 30, 66, 100];
+const GOAL_PRESETS = [10, 21, 30, 66, 100];
 let editingHabitId = null;
 let selectedEmoji = EMOJI_OPTIONS[0];
 let selectedGroupId = GROUPS[0].id;
-let selectedGoal = GOAL_PRESETS[2];
+let selectedGoal = GOAL_PRESETS[1];
 const celebrationQueue = [];
 
 /* ---------- modal helpers ---------- */
@@ -36,7 +36,7 @@ function showToast(msg){
   el.textContent = msg;
   el.classList.add('is-visible');
   clearTimeout(toastTimer);
-  toastTimer = setTimeout(()=> el.classList.remove('is-visible'), 2200);
+  toastTimer = setTimeout(()=> el.classList.remove('is-visible'), 5000);
 }
 
 /* ---------- confetti ---------- */
@@ -93,21 +93,28 @@ function habitCardHTML(habit){
   const group = groupFor(habit.groupId);
   const pct = Math.min(100, Math.round((habit.currentStreak / habit.goal) * 100));
   const closed = habit.status === 'completed';
-  return `
-  <div class="habit-card ${closed?'is-closed':''}" style="--hc:${group.hex}" data-habit-id="${habit.id}">
-    <div class="habit-emoji-badge">${habit.emoji}</div>
-    <div class="habit-info">
-      <div class="habit-name">${escapeHTML(habit.name)} ${closed ? certifiedIconSVG() : ''}</div>
-      <div class="habit-meta">
-        <span class="streak-pill">🔥 ${habit.currentStreak} ${i18n.t('unit.days')}</span>
-        <span>${habit.score.toLocaleString(i18n.lang==='en'?'en-US':'vi-VN')} ${i18n.t('unit.pts')}</span>
-      </div>
-      <div class="habit-progress-track"><div class="habit-progress-fill" style="width:${pct}%"></div></div>
+  // Thêm biến chứa text mục tiêu có hỗ trợ dịch thuật VI/EN
+const goalStr = `${habit.goal} ${i18n.t('unit.days')}`; 
+
+return `
+<div class="habit-card ${closed?'is-closed':''}" style="--hc:${group.hex}" data-habit-id="${habit.id}">
+  <div class="habit-emoji-badge">${habit.emoji}</div>
+  <div class="habit-info">
+    <div class="habit-name">
+      <span style="overflow: hidden; text-overflow: ellipsis;">${escapeHTML(habit.name)}</span>
+      <span class="habit-inline-goal">${goalStr}</span>
+      ${closed ? certifiedIconSVG() : ''}
     </div>
-    ${closed ? '' : `<button class="check-btn ${habit.completedDates.includes(todayStr())?'is-done':''}" data-check-id="${habit.id}" aria-label="check">
-      ${habit.completedDates.includes(todayStr()) ? '✓' : ''}
-    </button>`}
-  </div>`;
+    <div class="habit-meta">
+      <span class="streak-pill">🔥 ${habit.currentStreak} ${i18n.t('unit.days')}</span>
+      <span>${habit.score.toLocaleString(i18n.lang==='en'?'en-US':'vi-VN')} ${i18n.t('unit.pts')}</span>
+    </div>
+    <div class="habit-progress-track"><div class="habit-progress-fill" style="width:${pct}%"></div></div>
+  </div>
+  ${closed ? '' : `<button class="check-btn ${habit.completedDates.includes(todayStr())?'is-done':''}" data-check-id="${habit.id}" aria-label="check">
+    ${habit.completedDates.includes(todayStr()) ? '✓' : ''}
+  </button>`}
+</div>`;
 }
 function certifiedIconSVG(){
   return `<svg class="certified-icon" viewBox="0 0 24 24" width="16" height="16" fill="none"><circle cx="12" cy="12" r="10" fill="#E7B23D"/><path d="M8 12.5l2.5 2.5L16 9" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
@@ -185,7 +192,9 @@ function openDetail(habitId){
   if(!habit) return;
   document.getElementById('detailModal').dataset.habitId = habitId;
   document.getElementById('detailEmoji').textContent = habit.emoji;
-  document.getElementById('detailName').textContent = habit.name;
+  // Dùng innerHTML thay cho textContent để chèn thẻ span định dạng mục tiêu vào Modal Chi tiết
+  const goalStr = `${habit.goal} ${i18n.t('unit.days')}`;
+  document.getElementById('detailName').innerHTML = `${escapeHTML(habit.name)} <span class="habit-inline-goal">${goalStr}</span>`;
   renderDetailStats(habit);
   openCalendarFor(habitId);
   openModal('detailModal');
@@ -222,7 +231,14 @@ function buildEmojiPicker(){
 }
 function buildColorPicker(){
   const wrap = document.getElementById('colorPicker');
-  wrap.innerHTML = GROUPS.map(g=>`<button type="button" class="color-opt" style="background:${g.hex}" data-group="${g.id}" title="${i18n.t(g.labelKey)}"></button>`).join('');
+  // Thay thế giao diện vòng tròn trơn bằng cấu trúc thẻ Tag (Pill)
+  wrap.innerHTML = GROUPS.map(g => `
+    <button type="button" class="color-opt" data-group="${g.id}">
+      <span class="color-dot" style="background:${g.hex}"></span>
+      <span class="color-name" data-i18n="${g.labelKey}">${i18n.t(g.labelKey)}</span>
+    </button>
+  `).join('');
+  
   wrap.querySelectorAll('.color-opt').forEach(btn=>{
     btn.addEventListener('click', ()=>{
       selectedGroupId = btn.getAttribute('data-group');
