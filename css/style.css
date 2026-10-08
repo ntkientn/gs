@@ -21,13 +21,15 @@
   --gold: #E8A93D;
   --gold-tint: #FBEBCC;
 
+  --c-family: #FF9CEE; 
+  --c-home: #54E3C2;   
   --c-health: #FF5D3E;
-  --c-study: #2F8FD8;
-  --c-work: #E8A93D;
-  --c-mind: #8B7FD8;
-  --c-finance: #2A9D8F;
-  --c-creative: #E8639B;
-  --c-social: #F08A3C;
+  --c-study: #5d21f5;
+  --c-work: #f8ce2a;
+  --c-mind: #a97dfc;
+  --c-finance: #3a62a2;
+  --c-creative: #d9f37a;
+  --c-social: #ffad6f;
   --c-other: #8B7E70;
 
   --tier-green: #4CAF7D;
@@ -201,9 +203,48 @@ button{font-family:inherit;}
 .emoji-opt{width:42px; height:42px; border-radius:12px; border:1.5px solid var(--line); background:var(--bg); font-size:20px; display:flex; align-items:center; justify-content:center; cursor:pointer;}
 .emoji-opt.is-selected{border-color:var(--coral); background:var(--coral-tint);}
 
-.color-picker{display:flex; flex-wrap:wrap; gap:10px;}
-.color-opt{width:34px; height:34px; border-radius:50%; border:3px solid transparent; cursor:pointer; box-shadow:inset 0 0 0 1px rgba(0,0,0,.06);}
-.color-opt.is-selected{border-color:var(--ink);}
+/* Bảng màu dạng Tag (Pill) */
+.color-picker {
+  display: flex; 
+  flex-wrap: wrap; 
+  gap: 10px;
+}
+
+.color-opt {
+  width: auto; 
+  height: 38px; 
+  padding: 0 14px 0 6px; 
+  border-radius: 99px;
+  display: inline-flex; 
+  align-items: center; 
+  gap: 8px;
+  border: 1.5px solid var(--line); 
+  background: var(--bg);
+  transition: all 0.2s ease; 
+  cursor: pointer;
+}
+
+.color-opt.is-selected {
+  border-color: var(--coral); 
+  background: var(--coral-tint);
+}
+
+.color-dot {
+  width: 22px; 
+  height: 22px; 
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,0.06);
+}
+
+.color-name {
+  font-size: 13px; 
+  font-weight: 600; 
+  color: var(--ink-soft);
+}
+
+.color-opt.is-selected .color-name {
+  color: var(--coral-dark);
+}
 
 .goal-picker{display:flex; flex-wrap:wrap; gap:8px;}
 .goal-opt{border:1.5px solid var(--line); background:var(--bg); border-radius:999px; padding:8px 14px; font-size:13.5px; font-weight:700; cursor:pointer; color:var(--ink-soft);}
@@ -268,16 +309,37 @@ button{font-family:inherit;}
 .ach-detail-status.is-locked{background:var(--bg-grid); color:var(--ink-soft);}
 
 /* ---------- toast ---------- */
-.toast{
-  position:fixed; left:50%; bottom:26px; transform:translate(-50%,120%);
-  background:var(--ink); color:#fff; padding:12px 20px; border-radius:999px; font-weight:700; font-size:13.5px;
-  box-shadow:var(--shadow-pop); z-index:200; transition:transform .35s cubic-bezier(.22,1,.36,1), visibility .35s;
-  max-width:90vw; text-align:center; visibility:hidden;
+.toast {
+  position: fixed; 
+  left: 50%; 
+  top: 30px; /* Chuyển từ bottom lên top */
+  bottom: auto; 
+  transform: translate(-50%, -150%); /* Đổi hướng animation trượt từ trên xuống */
+  background: var(--ink); 
+  color: #fff; 
+  padding: 12px 20px; 
+  border-radius: 999px; 
+  font-weight: 700; 
+  font-size: 13.5px;
+  box-shadow: var(--shadow-pop); 
+  z-index: 9999; /* Tăng max z-index để luôn nổi trên mọi Modal/Drawer */
+  transition: transform .35s cubic-bezier(.22,1,.36,1), visibility .35s;
+  max-width: 90vw; 
+  text-align: center; 
+  visibility: hidden;
 }
-.toast.is-visible{transform:translate(-50%,0); visibility:visible;}
+
+.toast.is-visible { 
+  transform: translate(-50%, 0); 
+  visibility: visible; 
+}
 
 /* ---------- celebration modal ---------- */
-.celebrate-overlay{background:rgba(43,33,24,.55);}
+.celebrate-overlay {
+  background: rgba(43,33,24,.55);
+  align-items: center !important; /* Cưỡng chế đưa modal ra giữa màn hình trên mọi thiết bị */
+  padding: 24px; /* Thêm khoảng thở để modal không bao giờ chạm mép màn hình */
+}
 .celebrate-modal{max-width:340px; text-align:center; padding:34px 26px 28px; position:relative; overflow:hidden; border-radius:var(--radius-xl);}
 .celebrate-icon{font-size:56px; margin-bottom:10px; animation:pop .5s cubic-bezier(.34,1.56,.64,1);}
 @keyframes pop{0%{transform:scale(.3); opacity:0;} 100%{transform:scale(1); opacity:1;}}
@@ -365,3 +427,20 @@ button{font-family:inherit;}
 
 .settings-section { display: flex; justify-content: space-between; align-items: center; }
 .settings-label { font-size: 15px; font-weight: 500; color: var(--ink); }
+
+/* Inline Goal Text (Hiển thị mục tiêu kế bên tên) */
+.habit-inline-goal {
+  font-size: 13.5px; /* Tăng size lớn hơn */
+  font-weight: 600;  /* Làm chữ đậm rõ nét hơn */
+  color: var(--ink-soft); /* Màu rõ hơn một chút so với trước */
+  margin-left: 6px;
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+}
+.habit-inline-goal::before {
+  content: "—"; /* Đổi thành dấu gạch ngang dài */
+  margin-right: 6px;
+  font-size: 13px;
+  color: var(--ink-faint); /* Giữ dấu gạch màu nhạt để tạo sự phân tách */
+}
