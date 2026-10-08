@@ -36,6 +36,8 @@ const I18N = {
     "ach.goalBadges": "🎯 Huy hiệu mục tiêu",
     "ach.detailTitle": "Chi tiết",
     "celebrate.continue": "Tuyệt vời, tiếp tục nào!",
+    "groups.family": "Gia đình",
+    "groups.home": "Nhà cửa",
     "groups.health": "Sức khỏe",
     "groups.study": "Học tập",
     "groups.work": "Công việc",
@@ -72,7 +74,11 @@ const I18N = {
     "auth.email": "Email",
     "auth.password": "Mật khẩu",
     "auth.emailLogin": "Đăng nhập",
-    "auth.emailReg": "Đăng ký"
+    "auth.emailReg": "Đăng ký",
+    "drawer.close": "Đóng Menu",
+    "modal.cancel": "Hủy",
+    "detail.close": "Đóng",
+    "ach.close": "Đóng"
   },
   en: {
     "nav.achievements": "Achievements",
@@ -107,6 +113,8 @@ const I18N = {
     "ach.goalBadges": "🎯 Goal badges",
     "ach.detailTitle": "Details",
     "celebrate.continue": "Awesome, let's keep going!",
+    "groups.family": "Family",
+    "groups.home": "Home",
     "groups.health": "Health",
     "groups.study": "Study",
     "groups.work": "Work",
@@ -143,7 +151,11 @@ const I18N = {
     "auth.email": "Email",
     "auth.password": "Password",
     "auth.emailLogin": "Sign in",
-    "auth.emailReg": "Sign up"
+    "auth.emailReg": "Sign up",
+    "drawer.close": "Close Menu",
+    "modal.cancel": "Cancel",
+    "detail.close": "Close",
+    "ach.close": "Close"
   }
 };
 
