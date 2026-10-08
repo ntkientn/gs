@@ -5,22 +5,25 @@ const STORAGE_KEY = 'goalstreak_v1';
 
 const GROUPS = [
   { id:'health',   color:'var(--c-health)',   hex:'#FF5D3E', labelKey:'groups.health' },
-  { id:'study',    color:'var(--c-study)',    hex:'#2F8FD8', labelKey:'groups.study' },
-  { id:'work',     color:'var(--c-work)',     hex:'#E8A93D', labelKey:'groups.work' },
-  { id:'mind',     color:'var(--c-mind)',     hex:'#8B7FD8', labelKey:'groups.mind' },
-  { id:'finance',  color:'var(--c-finance)',  hex:'#2A9D8F', labelKey:'groups.finance' },
-  { id:'creative', color:'var(--c-creative)', hex:'#E8639B', labelKey:'groups.creative' },
-  { id:'social',   color:'var(--c-social)',   hex:'#F08A3C', labelKey:'groups.social' },
+  { id:'study',    color:'var(--c-study)',    hex:'#5d21f5', labelKey:'groups.study' },
+  { id:'work',     color:'var(--c-work)',     hex:'#f8ce2a', labelKey:'groups.work' },
+  { id:'mind',     color:'var(--c-mind)',     hex:'#a97dfc', labelKey:'groups.mind' },
+  { id:'finance',  color:'var(--c-finance)',  hex:'#3a62a2', labelKey:'groups.finance' },
+  { id:'creative', color:'var(--c-creative)', hex:'#d9f37a', labelKey:'groups.creative' },
+  { id:'social',   color:'var(--c-social)',   hex:'#ffad6f', labelKey:'groups.social' },
   { id:'other',    color:'var(--c-other)',    hex:'#8B7E70', labelKey:'groups.other' },
+  { id: 'family',  color: 'var(--c-family)',  hex:'#FF9CEE', labelKey: 'groups.family' },
+  { id: 'home',    color: 'var(--c-home)',    hex:'#54E3C2', labelKey: 'groups.home' }
 ];
 
 const EMOJI_OPTIONS = [
-  '💧', '🍎', '🥗', '💊', 
+  '⚠', '❌', '⛔', '✅', 
   '🏃‍♂️', '🏋️‍♀️', '🚴', '🧘‍♀️',
-  '📚', '💻', '🧠', '✍️', 
-  '💰', '📈', '🛒', '🎯', 
-  '🎨', '🎸', '🎮', '🪴',
-  '🧹', '🛌', '🌅', '🌙'
+  '📚', '👨‍💻', '🧠', '✍️', 
+  '💼', '📈', '🛒', '🎯', 
+  '🎨', '🎵', '🎮', '🪴',
+  '🫶', '👏', '🙏', '👍', 
+  '🛌', '🌅', '💧'
 ];
 
 const DEFAULT_STATE = () => ({
