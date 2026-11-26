@@ -356,24 +356,42 @@ button{font-family:inherit;}
   .hero-stat-value{font-size:20px;}
 }
 
-/* ---------- back-to-webnet + footer ---------- */
-.utility-strip{
-  padding:6px 0;
-}
-.utility-strip-inner{
-  max-width:760px; margin:0 auto; padding:0 18px;
-}
-.back-to-webnet{
-  font-size:11px; font-weight:600; color:var(--ink-faint);
-  background:transparent; border:0px solid var(--line); border-radius:999px;
-  padding:3px 10px; text-decoration:none; opacity:.75; transition:opacity .15s ease, color .15s ease;
-}
-.back-to-webnet:hover{opacity:1; color:var(--ink-soft);}
-.site-footer{
-  max-width:760px; margin:0 auto; padding:8px 18px 34px; text-align:center;
-  font-size:11.5px; color:var(--ink-faint);
+/* ---------- footer ---------- */
+.site-footer {
+  max-width: 760px;
+  margin: 28px auto 0;
+  padding: 20px 18px 40px;
+  text-align: center;
+  border-top: 1px solid var(--line);
 }
 
+.footer-brand-line {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--ink-soft);
+  line-height: 1.5;
+}
+
+.footer-webnet-link {
+  color: var(--coral);
+  font-weight: 800;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+  letter-spacing: 0.2px;
+  transition: color 0.15s ease;
+}
+
+.footer-webnet-link:hover {
+  color: var(--coral-dark);
+}
+
+.footer-copy {
+  margin-top: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--ink-faint);
+}
 /* =========================================================
    DRAWER MENU STYLES (Added)
    ========================================================= */
