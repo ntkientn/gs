@@ -20,27 +20,6 @@ const provider = new GoogleAuthProvider();
 
 window.firebaseUser = null;
 
-// 2. LẮNG NGHE TRẠNG THÁI ĐĂNG NHẬP
-onAuthStateChanged(auth, async (user) => {
-  window.firebaseUser = user;
-  const loginBtn = document.getElementById('loginBtn');
-  const userProfile = document.getElementById('userProfile');
-  
-  if (user) {
-    // Đã login -> Hiện avatar, ẩn nút login
-    loginBtn.style.display = 'none';
-    userProfile.style.display = 'flex';
-    document.getElementById('userAvatar').src = user.photoURL;
-    
-    // Tiến hành kéo và gộp data
-    await syncDataFromFirebase(user.uid);
-  } else {
-    // Chưa login -> Hiện nút login
-    loginBtn.style.display = 'block';
-    userProfile.style.display = 'none';
-  }
-});
-
 // 3. LOGIC KÉO & MERGE DATA
 async function syncDataFromFirebase(uid) {
   try {
